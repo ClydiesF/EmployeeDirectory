@@ -26,3 +26,4 @@ just used KingFisher as a dependencies for Image caching
 i used SwiftUI for this project for 2 reasons( even though i know Block doesn use it yet.) first reason being its ease of implementing MVVM. and the fact that is quick to get great UI working and itll allow me to focus on the actual networking logic. (its also the future)
 # EmployeeDirectory
 # EmployeeDirectory
+# EmployeeDirectory
