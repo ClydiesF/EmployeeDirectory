@@ -8,13 +8,25 @@
 import SwiftUI
 
 struct EmployeeListHeaderView: View {
+    let employeeCount: Int?
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        HStack {
+            Text(employeeCount != nil ? "Employees: \(employeeCount!)": "Seems we have no employees 🧐...")
+                .fontWeight(.bold)
+                .textCase(.uppercase)
+            
+        }
     }
 }
 
 struct EmployeeListHeaderView_Previews: PreviewProvider {
     static var previews: some View {
-        EmployeeListHeaderView()
+        EmployeeListHeaderView(employeeCount: 5)
+            .previewLayout(.sizeThatFits)
+            .padding()
+        EmployeeListHeaderView(employeeCount: nil)
+            .previewLayout(.sizeThatFits)
+            .padding()
     }
 }

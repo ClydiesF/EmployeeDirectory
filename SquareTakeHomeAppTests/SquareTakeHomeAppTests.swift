@@ -5,31 +5,36 @@
 //  Created by clydies freeman on 4/21/22.
 //
 
+import Combine
+@testable import SquareTakeHomeApp
+import SwiftUI
 import XCTest
 
 class SquareTakeHomeAppTests: XCTestCase {
+    var employeeProvider: EmployeeProvider!
 
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    override func setUp() {
+        employeeProvider = EmployeeProvider()
     }
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
-    }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        measure {
-            // Put the code you want to measure the time of here.
+    func testGetEmployeesCorrectCount() throws {
+       employeeProvider.getEmployeeList()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+            XCTAssertEqual(self.employeeProvider.employees?.count, 11)
         }
     }
-
+    
+    func testGetEmptyEmployeesCorrectCount() throws {
+       employeeProvider.getEmptyEmployeeList()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+            XCTAssertEqual(self.employeeProvider.employees?.count, 0)
+        }
+    }
+    
+    func testGetMalformedEmployeesCorrectCount() throws {
+       employeeProvider.getMalformedEmployeeList()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+            XCTAssertNil(self.employeeProvider.employees)
+        }
+    }
 }

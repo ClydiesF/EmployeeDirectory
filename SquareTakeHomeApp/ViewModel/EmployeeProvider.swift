@@ -7,7 +7,6 @@
 
 import Foundation
 import Combine
-@testable import Squar
 
 class EmployeeProvider: EmployeeService {
     var apiSession: APIService
@@ -17,8 +16,47 @@ class EmployeeProvider: EmployeeService {
     init(){
         self.apiSession = APISession()
     }
-    func getEmployeeList() -> AnyPublisher<Employees, APIError> {
-            getEmployeeList()
+    
+    func getEmployeeList() {
+       _ = getEmployeeList()
+            .sink { result in
+                switch result {
+                case let .failure(err):
+                    print("DEBUG: error \(err)")
+                case .finished:
+                    break
+                }
+            } receiveValue: { employeeResponse in
+                self.employees = employeeResponse.employees
+            }
+    }
+    
+    func getEmptyEmployeeList() {
+       _ = getEmptyEmployeeList()
+            .sink { result in
+                switch result {
+                case let .failure(err):
+                    print("DEBUG: error \(err)")
+                case .finished:
+                    break
+                }
+            } receiveValue: { employeeResponse in
+                self.employees = employeeResponse.employees
+            }
+    }
+    
+    func getMalformedEmployeeList() {
+       _ = getMalformedEmployeeList()
+            .sink { result in
+                switch result {
+                case let .failure(err):
+                    print("DEBUG: error \(err)")
+                case .finished:
+                    break
+                }
+            } receiveValue: { employeeResponse in
+                self.employees = nil
+            }
     }
     
 }
